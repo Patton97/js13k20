@@ -7,7 +7,7 @@ SPRITESHEET.src = `/images/spritesheet.png`
 
 const TILESIZE = 32
 
-
+// --------------------------------------------------------------------------------
 
 class Sprite
 {
@@ -27,29 +27,14 @@ class Sprite
     ctx.drawImage(SPRITESHEET, this.sx,this.sy,this.sw,this.sh, dx,dy,dw,dh)
   }
 }
-
-class GameObject
-{
-  constructor(sprite)
-  {
-    this.sprite = sprite
-    this.x = 0
-    this.y = 0
-  }
-  update()
-  {
-    this.sprite.draw(this.x, this.y)
-  }
-}
-
 var spriteDict = {
-  css: new Sprite(0,0),
-  txt: new Sprite(TILESIZE,0)
+  css : new Sprite(TILESIZE * 0, TILESIZE * 0),
+   js : new Sprite(TILESIZE * 1, TILESIZE * 0),
+  png : new Sprite(TILESIZE * 2, TILESIZE * 0),
+  txt : new Sprite(TILESIZE * 3, TILESIZE * 0)
 }
 
-var css = new GameObject(spriteDict["css"])
-var txt = new GameObject(spriteDict["txt"])
-css.x += TILESIZE
+// --------------------------------------------------------------------------------
 
 class ObjectManager
 {
@@ -67,8 +52,8 @@ class ObjectManager
   }
 }
 var objectManager = new ObjectManager
-objectManager.addObject(css)
-objectManager.addObject(txt)
+
+// --------------------------------------------------------------------------------
 
 class GameManager
 {
@@ -86,8 +71,31 @@ class GameManager
     objectManager.updateAll()
   }
 }
+var gameManager = new GameManager
 
-gameManager = new GameManager
+// --------------------------------------------------------------------------------
+
+class GameObject
+{
+  constructor(sprite)
+  {
+    this.sprite = sprite
+    this.x = 0
+    this.y = 0
+    objectManager.addObject(this)
+  }
+  update()
+  {
+    this.sprite.draw(this.x, this.y)
+  }
+}
+var css = new GameObject(spriteDict["css"])
+var  js = new GameObject(spriteDict[ "js"])
+var png = new GameObject(spriteDict["png"])
+var txt = new GameObject(spriteDict["txt"])
+css.x += TILESIZE * 1
+js.x  += TILESIZE * 2
+png.x += TILESIZE * 3
 
 //Keyboard controls
 /*
