@@ -12,16 +12,16 @@ SPRITESHEET.src = `/images/spritesheet.png`
 const TILESIZE = 32
 
 var spriteDict = {
-  text_css_marker   : new Sprite(TILESIZE * 0, TILESIZE * 0),
-  text_js_marker    : new Sprite(TILESIZE * 1, TILESIZE * 0),
-  image_png_marker  : new Sprite(TILESIZE * 2, TILESIZE * 0),
-  text_plain_marker : new Sprite(TILESIZE * 3, TILESIZE * 0),
-  text_css   : new Sprite(TILESIZE * 0, TILESIZE * 1),
-  text_js    : new Sprite(TILESIZE * 1, TILESIZE * 1),
-  image_png  : new Sprite(TILESIZE * 2, TILESIZE * 1),
-  text_plain : new Sprite(TILESIZE * 3, TILESIZE * 1),
-  star_inactive : new Sprite(TILESIZE * 0, TILESIZE * 2),
-  star_active : new Sprite(TILESIZE * 1, TILESIZE * 2)
+  text_css_marker       : new Sprite(TILESIZE * 0, TILESIZE * 0),
+  text_javascript_marker: new Sprite(TILESIZE * 1, TILESIZE * 0),
+  image_png_marker      : new Sprite(TILESIZE * 2, TILESIZE * 0),
+  text_plain_marker     : new Sprite(TILESIZE * 3, TILESIZE * 0),
+  text_css       : new Sprite(TILESIZE * 0, TILESIZE * 1),
+  text_javascript: new Sprite(TILESIZE * 1, TILESIZE * 1),
+  image_png      : new Sprite(TILESIZE * 2, TILESIZE * 1),
+  text_plain     : new Sprite(TILESIZE * 3, TILESIZE * 1),
+  star_inactive: new Sprite(TILESIZE * 0, TILESIZE * 2),
+  star_active  : new Sprite(TILESIZE * 1, TILESIZE * 2)
 }
 
 var ui_stars = []

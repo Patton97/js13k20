@@ -8,6 +8,7 @@ class Mime extends GameObject
     this.type = type
     this.active = true
     this.marker = new Marker(type)
+    this.addCollider()
   }
   update()
   {
