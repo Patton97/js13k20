@@ -73,15 +73,5 @@ class GameManager
       let yPos = ui_yPos+55
       star.draw(xPos, yPos)
     })
-    /*
-    for(let i = 0; i < 5; i++)
-    {
-      let xPos = 15 + ( i * 50 )
-      let yPos = ui_yPos+55
-      ctx.drawImage(SPRITESHEET, 
-                    0, TILESIZE * 2, TILESIZE, TILESIZE, // source img
-                    xPos, yPos, TILESIZE, TILESIZE)      // dest img
-    }
-    */
   }
 }

@@ -20,12 +20,20 @@ class PlayerController extends GameObject
     let _this = this // hack to ref this (playercontroller) rather than this (controlDict)
     // b: true = keydown, false = keyup
     this.controlDict = {
-      "87": function(b) { _this.up = b    },
-      "83": function(b) { _this.down = b  },
-      "65": function(b) { _this.left = b  },
-      "68": function(b) { _this.right = b },
-      "37": function(b) { if(b){_this.prevMime()} },
-      "39": function(b) { if(b){_this.nextMime()} }
+      "87" : function(b) { _this.up = b    }, // W
+      "83" : function(b) { _this.down = b  }, // S
+      "65" : function(b) { _this.left = b  }, // A
+      "68" : function(b) { _this.right = b }, // D
+      "37" : function(b) { if(b){_this.prevMime()} }, // left arrow
+      "39" : function(b) { if(b){_this.nextMime()} }, // right arrow
+      "49" : function(b) { _this.switchMime(0) }, // Digit1
+      "50" : function(b) { _this.switchMime(1) }, // Digit2
+      "51" : function(b) { _this.switchMime(2) }, // Digit3
+      "52" : function(b) { _this.switchMime(3) }, // Digit4
+      "97" : function(b) { _this.switchMime(0) }, // Numpad1
+      "98" : function(b) { _this.switchMime(1) }, // Numpad2
+      "99" : function(b) { _this.switchMime(2) }, // Numpad3
+      "100": function(b) { _this.switchMime(3) }, // Numpad4
     }
 
     this.switchMime(0)
@@ -80,8 +88,7 @@ class PlayerController extends GameObject
     this.mimes[mimeID].setActive(true)
     this.currentMime = mimeID
     
-    //this.sprite = this.mimes[mimeID]
-    this.switchCooldown += 120
+    this.switchCooldown += 60
   }
   getPosition()
   {
