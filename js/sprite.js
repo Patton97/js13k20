@@ -16,3 +16,17 @@ class Sprite
     ctx.drawImage(SPRITESHEET, this.sx,this.sy,this.sw,this.sh, dx,dy,dw,dh)
   }
 }
+
+class UI_Star extends Sprite
+{
+  constructor() 
+  { 
+    super(TILESIZE * 0, TILESIZE * 2)
+    this.active = false
+  }
+  setActive(active)
+  {
+    this.active = active    
+    this.sx = this.active ? TILESIZE * 1 : 0
+  }
+}

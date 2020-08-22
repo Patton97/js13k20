@@ -1,15 +1,11 @@
-class Player extends GameObject
+
+class PlayerController extends GameObject
 {
   constructor()
   {
-    super(spriteDict["txt"])
+    super()
 
-    this.mimes = [
-      spriteDict["txt"],
-      spriteDict["css"],
-      spriteDict[ "js"],
-      spriteDict["png"],
-    ]
+    this.mimes = [ new MimeTXT, new MimeCSS, new MimeJS, new MimePNG ]
     this.currentMime = 0
 
     this.speed = 1
@@ -22,21 +18,28 @@ class Player extends GameObject
     this.switchCooldown = 0
 
     let _this = this // hack to ref this (playercontroller) rather than this (controlDict)
+    // b: true = keydown, false = keyup
     this.controlDict = {
-      "87": function(b) { _this.moveUp(b)    },
-      "83": function(b) { _this.moveDown(b)  },
-      "65": function(b) { _this.moveLeft(b)  },
-      "68": function(b) { _this.moveRight(b) },
+      "87": function(b) { _this.up = b    },
+      "83": function(b) { _this.down = b  },
+      "65": function(b) { _this.left = b  },
+      "68": function(b) { _this.right = b },
       "37": function(b) { if(b){_this.prevMime()} },
-      "39": function(b) { _this.nextMime() }
+      "39": function(b) { if(b){_this.nextMime()} }
     }
+
+    this.switchMime(0)
   }
   update()
   {
-    if(this.up)    { this.y -= this.speed }
-    if(this.down)  { this.y += this.speed }
-    if(this.left)  { this.x -= this.speed }
-    if(this.right) { this.x += this.speed }
+    let moveAmount = {x: 0, y: 0}
+    if(this.up)    { moveAmount.y -= this.speed }
+    if(this.down)  { moveAmount.y += this.speed }
+    if(this.left)  { moveAmount.x -= this.speed }
+    if(this.right) { moveAmount.x += this.speed }
+
+    this.mimes[this.currentMime].move(moveAmount.x, moveAmount.y)
+    gameManager.moveCamera(moveAmount)
 
     if(this.switchCooldown > 0) { this.switchCooldown-- }
 
@@ -56,22 +59,6 @@ class Player extends GameObject
       console.log(`Key #${key_code} has no registered implementation`)
     }
   }
-  moveUp(keyDown)
-  {
-    this.up = keyDown
-  }
-  moveDown(keyDown)
-  {
-    this.down = keyDown
-  }
-  moveLeft(keyDown)
-  {
-    this.left = keyDown
-  }
-  moveRight(keyDown)
-  {
-    this.right = keyDown
-  }
   prevMime()
   {
     // decrement, wrap back around if below 0
@@ -89,8 +76,18 @@ class Player extends GameObject
     // if cooldown ongoing, ignore
     if(this.switchCooldown > 0) { return; }
 
+    this.mimes[this.currentMime].setActive(false)
+    this.mimes[mimeID].setActive(true)
     this.currentMime = mimeID
-    this.sprite = this.mimes[mimeID]
-    this.switchCooldown += 60
+    
+    //this.sprite = this.mimes[mimeID]
+    this.switchCooldown += 120
+  }
+  getPosition()
+  {
+    let position = { x: 0, y: 0}
+    position.x = this.mimes[this.currentMime].x + (TILESIZE*0.5)
+    position.y = this.mimes[this.currentMime].y + (TILESIZE*0.5)
+    return position
   }
 }
