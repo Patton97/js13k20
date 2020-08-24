@@ -1,12 +1,12 @@
 class GameObject
 {
-  constructor()
+  constructor(sprite)
   {
     this.x = 0
     this.y = 0
     objectManager.addObject(this)
     this.active = false
-    this.collidable = false
+    this.setSprite(sprite)
   }
   setSprite(sprite)
   {
@@ -26,15 +26,43 @@ class GameObject
   {
     
   }
-  addCollider(width, height, offsetX, offsetY)
+  
+}
+
+class CollidableGO extends GameObject
+{
+  constructor(sprite, width, height, offsetX, offsetY)
   {
-    width = width || this.sprite.sw
-    height = height || this.sprite.sh
-    offsetX = offsetX || 0
-    offsetY = offsetY || 0
-    this.collider = { x: offsetX, y: offsetY, w: width, h: height}
-    this.collidable = true
-    this.colliding = false
-    console.log(`added collider: {${this.collider.x},${this.collider.y},${this.collider.w},${this.collider.h}}`)
+    super(sprite)
+    this.collider = {} 
+    this.collider.x = offsetX || 0
+    this.collider.y = offsetY || 0
+    this.collider.w = width   || this.sprite.sw
+    this.collider.h = height  || this.sprite.sh
+  }
+  update()
+  {
+    super.update()
+    ctx.fillStyle = `#ff0000`
+    ctx.fillRect(this.x + this.collider.x, this.y + this.collider.y, this.collider.w, this.collider.h)
+  }
+  processCollision()
+  {
+    ctx.fillStyle = `#00ff00`
+    ctx.fillRect(this.x + this.collider.x, this.y + this.collider.y, this.collider.w, this.collider.h)
+  }
+}
+
+/* BUTTON PADS */
+class ButtonPad extends CollidableGO
+{
+  constructor()
+  {
+    super()
+    this.pressed = false
+  }
+  processCollision(other)
+  {
+    console.log(other.constructor.name)
   }
 }

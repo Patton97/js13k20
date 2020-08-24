@@ -1,14 +1,12 @@
-class Mime extends GameObject
+class Mime extends CollidableGO
 {
   constructor(type)
   {
-    super()
+    super(spriteDict[type])
     this.type = type
-    this.setSprite(spriteDict[type])
     this.type = type
     this.active = true
     this.marker = new Marker(type)
-    this.addCollider()
   }
   update()
   {
@@ -50,11 +48,14 @@ class MimePNG extends Mime
   constructor() { super("image_png") }
 }
 
+// ********************************************************************************
+
 class Marker extends GameObject
 {
   constructor(type)
   {
-    super()
-    this.setSprite(spriteDict[`${type}_marker`])
+    super(spriteDict[`${type}_marker`])
   }
 }
+
+// ********************************************************************************

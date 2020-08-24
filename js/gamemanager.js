@@ -17,8 +17,10 @@ class GameManager
     // move camera   
 
     objectManager.updateAll()
-    _this.drawUI()    
+    _this.drawUI()
 
+    // increment iFrame, loop back to 0 at 60
+    iFrame = (iFrame >= 60) ? 0 : iFrame+1
     // req next frame
     window.requestAnimationFrame(_this.update)
   }

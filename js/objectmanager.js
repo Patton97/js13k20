@@ -15,30 +15,29 @@ class ObjectManager
   }
   checkAllCollisions()
   {
-    // inefficient af, lots of redundant checks, but its a jam so who cares
-    this.objects.forEach(obj1=>{
-      // if obj1 isn't collidable, skip
-      if(!obj1.collidable) { return }
-      // at the start of each frame, we assume no collisions until they are (re)found
-      obj1.colliding = false 
+    // for every object
+    for(let i = 0; i < this.objects.length - 1; i++)
+    {
+      let obj1 = this.objects[i]
 
-      this.objects.forEach(obj2=>{
+      // if obj1 isn't collidable, skip
+      if(!(obj1 instanceof CollidableGO)) { continue }
+
+      // for each object, beginning with the object AFTER obj1 in the list
+      for(let j = i + 1; j < this.objects.length - 1; j++)
+      {
+        let obj2 = this.objects[j]
+
         // if obj2 isn't collidable, skip
-        if(!obj2.collidable) { return }
-        // if obj1 and obj2 are the same object, skip
-        if(obj1 === obj2) { return }
-        
+        if(!(obj2 instanceof CollidableGO)) { continue }
+
         if(this.checkCollision(obj1, obj2))
         {
-          obj1.colliding = true
-          obj2.colliding = true
+          obj1.processCollision(obj2)
+          obj2.processCollision(obj1)
         }
-      })
-      
-      // DEBUG: Draw green square 
-      ctx.fillStyle = obj1.colliding ? `#00ff00` : `#ff0000`
-      ctx.fillRect(obj1.x + obj1.collider.x, obj1.y + obj1.collider.y, obj1.collider.w, obj1.collider.h)
-    })
+      }
+    }
   }
   checkCollision(obj1, obj2)
   {

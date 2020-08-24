@@ -24,25 +24,19 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 var Mime =
 /*#__PURE__*/
-function (_GameObject) {
-  _inherits(Mime, _GameObject);
+function (_CollidableGO) {
+  _inherits(Mime, _CollidableGO);
 
   function Mime(type) {
     var _this;
 
     _classCallCheck(this, Mime);
 
-    _this = _possibleConstructorReturn(this, _getPrototypeOf(Mime).call(this));
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(Mime).call(this, spriteDict[type]));
     _this.type = type;
-
-    _this.setSprite(spriteDict[type]);
-
     _this.type = type;
     _this.active = true;
     _this.marker = new Marker(type);
-
-    _this.addCollider();
-
     return _this;
   }
 
@@ -73,7 +67,7 @@ function (_GameObject) {
   }]);
 
   return Mime;
-}(GameObject);
+}(CollidableGO);
 
 var MimeTXT =
 /*#__PURE__*/
@@ -129,24 +123,19 @@ function (_Mime4) {
   }
 
   return MimePNG;
-}(Mime);
+}(Mime); // ********************************************************************************
+
 
 var Marker =
 /*#__PURE__*/
-function (_GameObject2) {
-  _inherits(Marker, _GameObject2);
+function (_GameObject) {
+  _inherits(Marker, _GameObject);
 
   function Marker(type) {
-    var _this2;
-
     _classCallCheck(this, Marker);
 
-    _this2 = _possibleConstructorReturn(this, _getPrototypeOf(Marker).call(this));
-
-    _this2.setSprite(spriteDict["".concat(type, "_marker")]);
-
-    return _this2;
+    return _possibleConstructorReturn(this, _getPrototypeOf(Marker).call(this, spriteDict["".concat(type, "_marker")]));
   }
 
   return Marker;
-}(GameObject);
+}(GameObject); // ********************************************************************************

@@ -5,11 +5,12 @@ var ctx = document.querySelector("canvas").getContext("2d")
 ctx.canvas.width = CANVAS_WIDTH
 ctx.canvas.height = CANVAS_HEIGHT
 
-
 const SPRITESHEET = new Image()
 SPRITESHEET.src = `/images/spritesheet.png`
 
 const TILESIZE = 32
+
+var iFrame = 0
 
 var spriteDict = {
   text_css_marker       : new Sprite(TILESIZE * 0, TILESIZE * 0),
@@ -21,7 +22,14 @@ var spriteDict = {
   image_png      : new Sprite(TILESIZE * 2, TILESIZE * 1),
   text_plain     : new Sprite(TILESIZE * 3, TILESIZE * 1),
   star_inactive: new Sprite(TILESIZE * 0, TILESIZE * 2),
-  star_active  : new Sprite(TILESIZE * 1, TILESIZE * 2)
+  star_active  : new Sprite(TILESIZE * 1, TILESIZE * 2),
+  button_inactive: new Sprite(TILESIZE * 2, TILESIZE * 2),
+  button_active  : new Sprite(TILESIZE * 3, TILESIZE * 2),
+  beam_css_0: new Sprite(TILESIZE * 4, TILESIZE * 0),
+  beam_css_1: new Sprite(TILESIZE * 4, TILESIZE * 1),
+  beam_js_0: new Sprite(TILESIZE * 5, TILESIZE * 0),
+  beam_js_1: new Sprite(TILESIZE * 5, TILESIZE * 1),
+  crate_css: new Sprite(TILESIZE * 4, TILESIZE * 2)
 }
 
 var ui_stars = []
@@ -37,5 +45,20 @@ var objectManager = new ObjectManager
 var gameManager = new GameManager
 var playerController = new PlayerController
 
+// ********************************************************************************
+// EVENT LISTENERS ****************************************************************
+// ********************************************************************************
+
 window.addEventListener("keydown", playerController)
 window.addEventListener("keyup",   playerController)
+
+function getCursorPosition(canvas, event) {
+  const rect = canvas.getBoundingClientRect()
+  const x = event.clientX - rect.left
+  const y = event.clientY - rect.top
+  console.log("x: " + x + " y: " + y)
+}
+
+document.querySelector('canvas').addEventListener('mousedown', function(e) {
+  getCursorPosition(document.querySelector('canvas'), e)
+})
